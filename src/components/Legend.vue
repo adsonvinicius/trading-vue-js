@@ -9,11 +9,11 @@
               {{common.title_txt}}
         </span>
         <span v-if="show_values">
-            O<span class="t-vue-lspan" >{{ohlcv[0]}}</span>
-            H<span class="t-vue-lspan" >{{ohlcv[1]}}</span>
-            L<span class="t-vue-lspan" >{{ohlcv[2]}}</span>
-            C<span class="t-vue-lspan" >{{ohlcv[3]}}</span>
-            V<span class="t-vue-lspan" >{{ohlcv[4]}}</span>
+            <span class="label-ohlcv">Abr</span><span class="t-vue-lspan" >{{ohlcv[0]}}</span>
+            <span class="label-ohlcv">Max</span><span class="t-vue-lspan" >{{ohlcv[1]}}</span>
+            <span class="label-ohlcv">Min</span><span class="t-vue-lspan" >{{ohlcv[2]}}</span>
+            <span class="label-ohlcv">Fec</span><span class="t-vue-lspan" >{{ohlcv[3]}}</span>
+            <span class="label-ohlcv">Vol</span><span class="t-vue-lspan" >{{ohlcv[4]}}</span>
         </span>
         <span v-if="!show_values" class="t-vue-lspan"
             :style="{color: common.colors.text}">
@@ -63,10 +63,10 @@ export default {
     computed: {
         ohlcv() {
             if (!this.$props.values || !this.$props.values.ohlcv) {
-                return Array(6).fill('n/a')
+                return Array(6).fill('-')
             }
             const prec = this.layout.prec
-
+            const format = (n, d) => n.toLocaleString(undefined, {minimumFractionDigits: d, maximumFractionDigits: d}) 
             // TODO: main the main legend more customizable
             let id = this.main_type + '_0'
             let meta = this.$props.meta_props[id] || {}
@@ -75,19 +75,18 @@ export default {
             }
 
             return [
-                this.$props.values.ohlcv[1].toFixed(prec),
-                this.$props.values.ohlcv[2].toFixed(prec),
-                this.$props.values.ohlcv[3].toFixed(prec),
-                this.$props.values.ohlcv[4].toFixed(prec),
-                this.$props.values.ohlcv[5] ?
-                    this.$props.values.ohlcv[5].toFixed(2):
-                    'n/a'
+                this.$props.values.ohlcv[1],
+                format(this.$props.values.ohlcv[2], 2),
+                format(this.$props.values.ohlcv[3], 2),
+                format(this.$props.values.ohlcv[4], 2),
+                this.$props.values.ohlcv[5] ? format(this.$props.values.ohlcv[5], 2) :'0'
             ]
         },
         // TODO: add support for { grid: { id : N }}
         indicators() {
             const values = this.$props.values
             const f = this.format
+
             var types = {}
 
             return this.json_data.filter(
@@ -135,6 +134,7 @@ export default {
     },
     methods: {
         format(id, values) {
+            const format = (n, d) => n.toLocaleString(undefined, {minimumFractionDigits: d, maximumFractionDigits: d})
             let meta = this.$props.meta_props[id] || {}
             // Matches Overlay.data_colors with the data values
             // (see Spline.vue)
@@ -150,13 +150,13 @@ export default {
                     x = x.toFixed(Math.abs(x) > 0.001 ? 4 : 8)
                 }
                 return {
-                    value: x,
+                    value: isNaN(x) ? '-' : format(parseFloat(x), 2),
                     color: cs ? cs[i % cs.length] : undefined
                 }
             })
         },
         n_a(len) {
-            return Array(len).fill({ value: 'n/a' })
+            return Array(len).fill({ value: '-' })
         },
         button_click(event) {
             this.$emit('legend-button-click', event)

@@ -14,9 +14,9 @@ const MONTH = WEEK * 4
 const YEAR = DAY * 365
 
 const MONTHMAP = [
-    "Jan", "Feb", "Mar", "Apr",
-    "May", "Jun","Jul", "Aug",
-    "Sep", "Oct","Nov", "Dec"
+    "Jan", "Fev", "Mar", "Abr",
+    "Mai", "Jun","Jul", "Ago",
+    "Set", "Out","Nov", "Dez"
 ]
 
 // Grid time steps
