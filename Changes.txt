@@ -1,0 +1,37 @@
+
+##################################################
+/src/stuff/constants.js
+##################################################
+
+
+const MONTHMAP = [
+    "Jan", "Fev", "Mar", "Abr",
+    "Mai", "Jun","Jul", "Ago",
+    "Set", "Out","Nov", "Dez"
+]
+
+
+##################################################
+/scr/components/Legeng.vue
+##################################################
+
+const prec = this.layout.prec
+const format = (n, d) => parseFloat(n.toFixed(d)).toLocaleString()
+// TODO: main the main legend more customizable
+let id = this.main_type + '_0'
+let meta = this.$props.meta_props[id] || {}
+if (meta.legend) {
+	return (meta.legend() || []).map(x => x.value)
+}
+
+return [
+	format(this.$props.values.ohlcv[1], prec),
+	format(this.$props.values.ohlcv[2], prec),
+	format(this.$props.values.ohlcv[3], prec),
+	format(this.$props.values.ohlcv[4], prec),
+	this.$props.values.ohlcv[5] ? format(this.$props.values.ohlcv[5], 2) :' '
+]
+
+##################################################
+/scr/
+##################################################
