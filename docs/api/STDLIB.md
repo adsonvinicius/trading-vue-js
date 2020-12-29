@@ -1,6 +1,10 @@
 
 # Std-lib (Scripts)
 
+This guide version is **1.0.0**
+
+![npm](https://img.shields.io/npm/v/trading-vue-js.svg?color=brightgreen&label=Current%20lib%20version)
+
 ## Functions
 
 <dl>
@@ -1276,7 +1280,7 @@ Relative Strength Index
 | Param | Type | Description |
 | --- | --- | --- |
 | x | <code>TS</code> | First Input |
-| y | <code>number</code> \| <code>TS</code> | First Input |
+| y | <code>number</code> \| <code>TS</code> | Second Input |
 
 <a name="sar"></a>
 
