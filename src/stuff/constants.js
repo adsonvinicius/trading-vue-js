@@ -58,6 +58,7 @@ const ChartConfig = {
     L_BTN_SIZE: 21,  // Legend Button size, px
     L_BTN_MARGIN: '-6px 0 -6px 0', // css margin
     SCROLL_WHEEL: 'prevent', // 'pass', 'click'
+    BLOCK_CHART: false
 }
 
 ChartConfig.FONT =

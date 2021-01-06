@@ -32,8 +32,8 @@ export default class Grid {
         this.offset_y = 0
         this.deltas = 0 // Wheel delta events
         this.wmode = this.$p.config.SCROLL_WHEEL
-
-        this.listeners()
+        if(this.$p.config.BLOCK_CHART === false)
+            this.listeners()
         this.overlays = []
 
     }
