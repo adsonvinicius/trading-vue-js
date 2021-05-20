@@ -75,7 +75,7 @@ export default {
             }
 
             return [
-                this.$props.values.ohlcv[1],
+                format(this.$props.values.ohlcv[1], 2),
                 format(this.$props.values.ohlcv[2], 2),
                 format(this.$props.values.ohlcv[3], 2),
                 format(this.$props.values.ohlcv[4], 2),
