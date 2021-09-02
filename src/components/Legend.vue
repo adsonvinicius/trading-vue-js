@@ -79,7 +79,7 @@ export default {
                 format(this.$props.values.ohlcv[2], 2),
                 format(this.$props.values.ohlcv[3], 2),
                 format(this.$props.values.ohlcv[4], 2),
-                this.$props.values.ohlcv[5] ? format(this.$props.values.ohlcv[5], 2) :'0'
+                this.$props.values.ohlcv[5] ? this.formatVolume(this.$props.values.ohlcv[5]) : '0'
             ]
         },
         // TODO: add support for { grid: { id : N }}
@@ -133,6 +133,14 @@ export default {
         }
     },
     methods: {
+        formatVolume(num) {
+          const si = [{ value: 1E12, symbol: 'T' }, { value: 1E9, symbol: 'B' }, { value: 1E6, symbol: 'M' }, { value: 1E3, symbol: 'K' }]
+          for (let i = 0; i < si.length; i++){
+            if (num >= si[i].value)
+              return ((num / si[i].value + 0.1).toFixed(2).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + si[i].symbol).replace('.',',')
+          }
+          return num.toString().replace('.',',')
+        },
         format(id, values) {
             const format = (n, d) => n.toLocaleString(undefined, {minimumFractionDigits: d, maximumFractionDigits: d})
             let meta = this.$props.meta_props[id] || {}
